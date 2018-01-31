@@ -7,10 +7,31 @@ import matplotlib.pyplot as plt
 def linear_fit(x_array, y_array, plotting=False):
 
     """
-    :param x_array:
-    :param y_array:
-    :param plotting:
-    :return:
+    Function to perform a linear fit to data and compute the fitting errors.
+
+    Parameters
+    ----------
+    x_array: list or numpy array
+        list of x data points
+    y_array: list or numpy array
+        list of y data points
+    plotting: bool
+        key word to turn on plotting and display results of fit to data
+
+    Returns
+    -------
+    x_fit: numpy array
+        array of x values which fit is computed over
+    y_fit: numpy array
+        array of fitted y values
+    gradient: float
+        the gradient of the fitted line
+    gradient_error: float
+        error in the gradient determined from the variance in the fit coefficient
+    intercept: float
+        y axis intercept
+    intercept_error: float
+          error in the intercept determined from the variance in the fit coefficient
     """
 
     # Perform fit to the data
@@ -20,17 +41,19 @@ def linear_fit(x_array, y_array, plotting=False):
     gradient, intercept = coefs
     gradient_error, intercept_error = sqrt(diag(cov))
 
-    if plotting:
+    # Create fit line
+    x_fit = linspace(0, 10, 10)
+    y_fit = polyval(coefs, x_fit)
 
-        # Create fit line
-        x_fit = linspace(0, 10, 10)
-        y_fit = polyval(coefs, x_fit)
+    if plotting:
 
         # Plot the data and the fit
         plt.plot(x_array, y_array, "bo", label="Data")
         plt.plot(x_fit, y_fit, "r-", lw=2, label="Fit")
 
         # Plot formatting etc.
+        plt.xlim(-1.0, 1.2 * max(x_array))
+        plt.ylim(0.5 * min(y_array), 1.2 * max(y_array))
         plt.xlabel("x", fontsize=16)
         plt.ylabel("y", fontsize=16)
         plt.legend(loc="upper left")
@@ -38,6 +61,8 @@ def linear_fit(x_array, y_array, plotting=False):
                   + "\n"
                   + "c = " + str(round(intercept, 3)) + " +/- " + str(round(intercept_error, 3)))
         plt.show()
+
+    return x_fit, y_fit, gradient, gradient_error, intercept, intercept_error
 
 
 if __name__ == "__main__":
