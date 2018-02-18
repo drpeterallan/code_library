@@ -61,10 +61,11 @@ def linear_fit(x_array, y_array, plotting=False):
         plt.fill_between(x_fit, y_fit_lower, y_fit_upper, color="blue", alpha=0.2)
 
         # Plot formatting etc.
+        plt.tick_params(axis="both", labelsize=16, pad=5)
         plt.xlim(-1.0, 1.2 * max(x_array))
         plt.ylim(0.5 * min(y_array), 1.2 * max(y_array))
-        plt.xlabel("x", fontsize=16)
-        plt.ylabel("y", fontsize=16)
+        plt.xlabel("x [units]", fontsize=16)
+        plt.ylabel("y [units]", fontsize=16)
         plt.legend(loc="upper left")
         plt.title("m = " + str(round(gradient, 3)) + " +/- " + str(round(gradient_error, 3))
                   + "\n"
