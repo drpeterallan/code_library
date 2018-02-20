@@ -9,7 +9,7 @@ def linear_function(x_array, m, c):
     return m * x_array + c
 
 
-def linear_fit(x_array, y_array, y_data_error, plotting=False):
+def linear_fit(x_array, y_array, y_errors, plotting=False):
 
     """
     Function to perform a linear fit to data and compute the fitting errors.
@@ -17,18 +17,20 @@ def linear_fit(x_array, y_array, y_data_error, plotting=False):
     Parameters
     ----------
     x_array: list or numpy array
-        list of x data points
+        1D list of x data points
     y_array: list or numpy array
-        list of y data points
+        1D list of y data points
+    y_data_error: list or numpy array
+        1D list of y errors
     plotting: bool
         key word to turn on plotting and display results of fit to data
 
     Returns
     -------
     x_fit: numpy array
-        array of x values which fit is computed over
+        1D array of x values which fit is computed over
     y_fit: numpy array
-        array of fitted y values
+        1D array of fitted y values
     gradient: float
         the gradient of the fitted line
     gradient_error: float
@@ -43,6 +45,8 @@ def linear_fit(x_array, y_array, y_data_error, plotting=False):
     coefs_int = [0.0, 0.0]  # Initial guess of parameters
     coefs, cov = curve_fit(linear_function, x_array, y_array, coefs_int,
                            absolute_sigma=y_data_error)
+
+    """sigma or absolute sigma?"""
 
     # Compute fitting errors
     gradient, intercept = coefs
@@ -90,4 +94,4 @@ if __name__ == "__main__":
     y_data = [3.1, 4.7, 5.2, 4.5, 6.8, 6.1, 8.0, 7.7, 9.3, 10.1]
     y_data_error = [random() for _ in range(len(x_data))]
 
-    linear_fit(x_data, y_data, y_data_error, plotting=True)
+    linear_fit(x_data, y_data, y_errors, plotting=True)
