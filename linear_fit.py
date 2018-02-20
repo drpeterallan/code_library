@@ -1,9 +1,15 @@
 from __future__ import division, print_function  # python 2 to 3 compatibility
-from numpy import linspace, polyfit, polyval, sqrt, diag
+from numpy import linspace, polyval, sqrt, diag
 import matplotlib.pyplot as plt
+from scipy.optimize import curve_fit
+from random import random
 
 
-def linear_fit(x_array, y_array, plotting=False):
+def linear_function(x_array, m, c):
+    return m * x_array + c
+
+
+def linear_fit(x_array, y_array, y_data_error, plotting=False):
 
     """
     Function to perform a linear fit to data and compute the fitting errors.
@@ -34,21 +40,23 @@ def linear_fit(x_array, y_array, plotting=False):
     """
 
     # Perform fit to the data
-    coefs, cov = polyfit(x_array, y_array, 1, cov=True)
+    coefs_int = [0.0, 0.0]  # Initial guess of parameters
+    coefs, cov = curve_fit(linear_function, x_array, y_array, coefs_int,
+                           absolute_sigma=y_data_error)
 
     # Compute fitting errors
     gradient, intercept = coefs
     gradient_error, intercept_error = sqrt(diag(cov))
     coefs_error = sqrt(diag(cov))
 
-    # Create fit line
+    # Create the fit line
     x_fit = linspace(0, 10, 10)
     y_fit = polyval(coefs, x_fit)
 
     if plotting:
 
         # Plot the data and the fit
-        plt.plot(x_array, y_array, "bo", label="Data")
+        plt.errorbar(x_array, y_array, yerr=y_data_error, fmt="o", color="blue", label="Data")
         plt.plot(x_fit, y_fit, "r-", lw=2, label="Fit")
 
         # Generate the fit limits
@@ -80,5 +88,6 @@ if __name__ == "__main__":
     # Create data to fit
     x_data = linspace(0, 10, 10)
     y_data = [3.1, 4.7, 5.2, 4.5, 6.8, 6.1, 8.0, 7.7, 9.3, 10.1]
+    y_data_error = [random() for _ in range(len(x_data))]
 
-    linear_fit(x_data, y_data, plotting=True)
+    linear_fit(x_data, y_data, y_data_error, plotting=True)
