@@ -9,7 +9,7 @@ def linear_function(x_array, m, c):
     return m * x_array + c
 
 
-def linear_fit(x_array, y_array, y_errors, plotting=False):
+def linear_fit(x_array, y_array, y_array_errs, plotting=False):
 
     """
     Function to perform a linear fit to data and compute the fitting errors.
@@ -20,7 +20,7 @@ def linear_fit(x_array, y_array, y_errors, plotting=False):
         1D list of x data points
     y_array: list or numpy array
         1D list of y data points
-    y_data_error: list or numpy array
+    y_array_errs: list or numpy array
         1D list of y errors
     plotting: bool
         key word to turn on plotting and display results of fit to data
@@ -44,7 +44,7 @@ def linear_fit(x_array, y_array, y_errors, plotting=False):
     # Perform fit to the data
     coefs_int = [0.0, 0.0]  # Initial guess of parameters
     coefs, cov = curve_fit(linear_function, x_array, y_array, coefs_int,
-                           absolute_sigma=y_data_error)
+                           absolute_sigma=y_array_errs)
 
     """sigma or absolute sigma?"""
 
@@ -60,7 +60,7 @@ def linear_fit(x_array, y_array, y_errors, plotting=False):
     if plotting:
 
         # Plot the data and the fit
-        plt.errorbar(x_array, y_array, yerr=y_data_error, fmt="o", color="blue", label="Data")
+        plt.errorbar(x_array, y_array, yerr=y_array_errs, fmt="o", color="blue", label="Data")
         plt.plot(x_fit, y_fit, "r-", lw=2, label="Fit")
 
         # Generate the fit limits
@@ -70,7 +70,8 @@ def linear_fit(x_array, y_array, y_errors, plotting=False):
         y_fit_lower = polyval(coefs_lower, x_fit)
 
         # Plot the error envelope of the fit
-        plt.fill_between(x_fit, y_fit_lower, y_fit_upper, color="blue", alpha=0.2)
+        plt.fill_between(x_fit, y_fit_lower, y_fit_upper, color="blue", alpha=0.2,
+                         label="Error bounds")
 
         # Plot formatting etc.
         plt.tick_params(axis="both", labelsize=16, pad=5)
@@ -92,6 +93,6 @@ if __name__ == "__main__":
     # Create data to fit
     x_data = linspace(0, 10, 10)
     y_data = [3.1, 4.7, 5.2, 4.5, 6.8, 6.1, 8.0, 7.7, 9.3, 10.1]
-    y_data_error = [random() for _ in range(len(x_data))]
+    y_data_errors = [random() for _ in range(len(x_data))]
 
-    linear_fit(x_data, y_data, y_errors, plotting=True)
+    linear_fit(x_data, y_data, y_data_errors, plotting=True)
