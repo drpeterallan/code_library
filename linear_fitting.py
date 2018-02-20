@@ -54,7 +54,7 @@ def linear_fit(x_array, y_array, y_array_errs, plotting=False):
     coefs_error = sqrt(diag(cov))
 
     # Create the fit line
-    x_fit = linspace(0, 10, 10)
+    x_fit = linspace(min(x_array), max(x_array), 100)
     y_fit = polyval(coefs, x_fit)
 
     if plotting:
@@ -90,9 +90,10 @@ def linear_fit(x_array, y_array, y_array_errs, plotting=False):
 
 if __name__ == "__main__":
 
-    # Create data to fit
+    # Create data for fitting
     x_data = linspace(0, 10, 10)
     y_data = [3.1, 4.7, 5.2, 4.5, 6.8, 6.1, 8.0, 7.7, 9.3, 10.1]
     y_data_errors = [random() for _ in range(len(x_data))]
 
+    # Perform fit to data
     linear_fit(x_data, y_data, y_data_errors, plotting=True)
