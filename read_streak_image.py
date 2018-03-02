@@ -1,10 +1,11 @@
 from __future__ import division, print_function  # python 2 to 3 compatibility
 import matplotlib.pyplot as plt
-from numpy import shape, array, random
+from numpy import shape, array, exp, linspace, arange
 from my_functions.pa3 import search_function
+from scipy.optimize import curve_fit
 
 
-def read_image(path_to_file):
+def read_image_file(path_to_file):
 
     # Function to read image file and return in format you would get real image
 
@@ -28,7 +29,6 @@ def contour_image_plot(x_axis, y_axis, pixel_vals):
     plt.contourf(x_axis, y_axis, pixel_vals, 50)
     plt.xlabel("Time")
     plt.ylabel("Space")
-    plt.show()
 
 
 def get_yaxis_lineout(y_axis, pixel_vals, y_lineout_position):
@@ -39,21 +39,48 @@ def get_yaxis_lineout(y_axis, pixel_vals, y_lineout_position):
     return pixel_vals[y_index_pos, :]
 
 
+def sigmoid_func(x_array, minimum, maximum, centre, slope):
+    return minimum + ((maximum - minimum) / (1 + exp((centre - x_array) / slope)))
+
+
+def fit_edge_profile(x_array, y_array):
+
+    # Find edge position
+    coefs_int = [0.0, 1.0, 1.0, 1.0]  # Initial guess of parameters
+    coefs, _ = curve_fit(sigmoid_func, x_array, y_array, coefs_int)
+
+    return coefs
+
+
 if __name__ == "__main__":
 
     # Get and read in the image data
     image_location = "/home/peter/Documents/streak_image_analysis/streak_test_image.png"
-    time, space, data = read_image(image_location)
+    time, space, data = read_image_file(image_location)
 
-    # Plot the image - its inverted in
-    # contour_image_plot(time, space, data)
+    lineout_positions = arange(200, 300)
+    time_positions = []
+    for lineout_position in lineout_positions:
 
-    # Pull a lineout from the image
-    # TODO: select max and min y positions and loop over lineouts in this region
-    lineout_vals = get_yaxis_lineout(space, data, 200)
-    plt.plot(time, lineout_vals)
+        # Pull a lineout from the image
+        # TODO: select max and min y (event clicker) and loop over lineouts in this region
+        lineout_vals = get_yaxis_lineout(space, data, lineout_position)
+
+        # Find the edge by fitting a sigmoid
+        coefs = fit_edge_profile(time, lineout_vals)
+        time_positions.append(coefs[2])
+
+        # Plot data and fit
+        # plt.plot(time, lineout_vals, "b-", lw=2)
+        # y_fit = sigmoid_func(time, coefs[0], coefs[1], coefs[2], coefs[3])
+        # plt.plot(time, y_fit, "r-", lw=1)
+        # plt.title(coefs[2])
+        # plt.show()
+
+
+    # Plot the image
+    contour_image_plot(time, space, data)
+    plt.plot(time_positions, lineout_positions, "r-", lw=2)
     plt.show()
 
-    # Find the 90 and 10% positions, or fit a sigmoid? Find slope centre and look for 90
-    # and 10% around that
 
