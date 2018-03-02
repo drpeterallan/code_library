@@ -54,10 +54,12 @@ if __name__ == "__main__":
     image_location = "/home/peter/Documents/streak_image_analysis/streak_test_image.png"
     time, space, data = read_image_file(image_location)
 
+    # Define the positions to take lineouts
     lineout_positions = arange(0, 450, 50)
+
+    # Create empty arrays and loop over image
     edge_times = []
     edge_times_errors = []
-
     for lineout_position in lineout_positions:
 
         # Pull a lineout from the image
@@ -76,14 +78,16 @@ if __name__ == "__main__":
         # plt.title(coefs[2])
         # plt.show()
 
+    # Convert to numpy array
     edge_times = array(edge_times, dtype=float)
     edge_times_errors = array(edge_times_errors, dtype=float) * 10
 
-    # Plot the image
+    # Plot the image and overlay the edge positions
     contour_image_plot(time, space, data)
     plt.errorbar(edge_times, lineout_positions, xerr=edge_times_errors, lw=0)
     plt.show()
 
+    # Plot the edge positions
     plt.errorbar(edge_times, lineout_positions, fmt="o", xerr=edge_times_errors, lw=0)
     plt.show()
 
