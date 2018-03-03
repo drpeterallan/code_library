@@ -1,8 +1,15 @@
 from __future__ import division, print_function  # python 2 to 3 compatibility
-from numpy import linspace, polyval, sqrt, diag
+from numpy import linspace, polyval, sqrt, diag, array, argmin
 import matplotlib.pyplot as plt
 from scipy.optimize import curve_fit
 from random import random
+
+
+def search_array(array_to_search, search_term):
+    # Convert list to search into numpy array
+    array_to_search = array(array_to_search)
+    index_pos = argmin(abs(array_to_search - search_term))
+    return index_pos
 
 
 def linear_function(x_array, m, c):
@@ -46,8 +53,6 @@ def linear_fit(x_array, y_array, y_array_errs, plotting=False):
     coefs, cov = curve_fit(linear_function, x_array, y_array, coefs_int,
                            absolute_sigma=y_array_errs)
 
-    """sigma or absolute sigma?"""
-
     # Compute fitting errors
     gradient, intercept = coefs
     gradient_error, intercept_error = sqrt(diag(cov))
@@ -72,6 +77,15 @@ def linear_fit(x_array, y_array, y_array_errs, plotting=False):
         # Plot the error envelope of the fit
         plt.fill_between(x_fit, y_fit_lower, y_fit_upper, color="blue", alpha=0.2,
                          label="Error bounds")
+
+        # Compute the plot residuals
+        # Get the y_fit values which correspond to the data values
+        y_fit_vals_at_data = []
+        for i in range(len(x_data)):
+            index_pos = search_array(x_fit, x_data[i])
+            y_fit_vals_at_data.append(y_fit[index_pos])
+
+        residuals = y_data - array(y_fit_vals_at_data)
 
         # Plot formatting etc.
         plt.tick_params(axis="both", labelsize=16, pad=5)
