@@ -34,7 +34,7 @@ def get_yaxis_lineout(y_axis, pixel_vals, y_lineout_position):
     return pixel_vals[y_index_pos, :]
 
 
-def sigmoid_func(x_array, minimum, maximum, centre, slope):
+def sigmoid_function(x_array, minimum, maximum, centre, slope):
     return minimum + ((maximum - minimum) / (1 + exp((centre - x_array) / slope)))
 
 
@@ -42,7 +42,7 @@ def fit_edge_profile(x_array, y_array):
 
     # Find edge position
     coefs_int = [0.0, 1.0, 1.0, 1.0]  # Initial guess of parameters
-    coefs, cov = curve_fit(sigmoid_func, x_array, y_array, coefs_int)
+    coefs, cov = curve_fit(sigmoid_function, x_array, y_array, coefs_int)
     errors = sqrt(diag(cov))
 
     return coefs, errors
