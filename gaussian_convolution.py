@@ -22,28 +22,32 @@ def test_mask(width, height, x_array):
 
 if __name__ == "__main__":
 
-    # Create a gaussian to model detector resolution
-    x_gauss = arange(-15, 16, 0.1)
-    y_gauss = gaussian_function(x_gauss, 10, 0, 1)
+    # Create a square pulse to convolve with a gaussian
+    x_data = arange(-15, 16, 0.1)
+    y_square = test_mask(5, 10, x_data)
 
-    # Create a square pulse to convolve
-    y_square = test_mask(5, 10, x_gauss)
+    # Plot the initial unperturbed data
+    plt.plot(x_data, y_square / max(y_square), "k-", lw=2, label="Mask")
 
-    # Do the convolution
-    y_convolved = convolve(y_square, y_gauss, mode="same")
+    # Loop over a range of different gaussian widths
+    fwhms = [1, 2, 3, 4, 5]
+    for fwhm in fwhms:
 
-    # Plot the output
-    plt.plot(x_gauss, y_square / max(y_square), "r-", lw=2, label="Mask")
-    plt.plot(x_gauss, y_gauss / max(y_gauss), "b-", lw=2, label="Gaussian")
-    plt.plot(x_gauss + 0.4, y_convolved / max(y_convolved), "g-", lw=2, label="Convolved")
+        # Create the gaussian to model the detector resolution
+        y_gauss = gaussian_function(x_data, 10, 0, fwhm)
 
-    # TODO: change parameters names. Determine why convolve introduces an offset in x
+        # Do the convolution
+        y_convolved = convolve(y_square, y_gauss, mode="same")
 
-    # Finish up plot
-    plt.tick_params(axis="both", labelsize=16, pad=5)
-    plt.xlabel("Position [a. u.]", fontsize=16)
-    plt.ylabel("Signal [a. u.]", fontsize=16)
-    plt.xlim(-11, 11)
-    plt.ylim(0, 1.2)
-    plt.legend()
+        # Plot the output
+        plt.plot(x_data + 0.4, y_convolved / max(y_convolved), lw=2, label=str(fwhm))
+
+        # Finish up plot
+        plt.tick_params(axis="both", labelsize=16, pad=5)
+        plt.xlabel("Position [a. u.]", fontsize=16)
+        plt.ylabel("Signal [a. u.]", fontsize=16)
+        plt.xlim(-11, 11)
+        plt.ylim(0, 1.2)
+        plt.legend(title="Gaussian FWHM:", fontsize=12)
+
     plt.show()
