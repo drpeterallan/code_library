@@ -63,10 +63,12 @@ def linear_fit(x_array, y_array, y_array_errs, plotting=False):
     y_fit = polyval(coefs, x_fit)
 
     if plotting:
+        
+        fig, ax = plt.subplots(2, 1, sharex=True)
 
         # Plot the data and the fit
-        plt.errorbar(x_array, y_array, yerr=y_array_errs, fmt="o", color="blue", label="Data")
-        plt.plot(x_fit, y_fit, "r-", lw=2, label="Fit")
+        ax[0].errorbar(x_array, y_array, yerr=y_array_errs, fmt="o", color="blue", label="Data")
+        ax[0].plot(x_fit, y_fit, "r-", lw=2, label="Fit")
 
         # Generate the fit limits
         coefs_upper = coefs + coefs_error
@@ -75,11 +77,11 @@ def linear_fit(x_array, y_array, y_array_errs, plotting=False):
         y_fit_lower = polyval(coefs_lower, x_fit)
 
         # Plot the error envelope of the fit
-        plt.fill_between(x_fit, y_fit_lower, y_fit_upper, color="blue", alpha=0.2,
+        ax[0].fill_between(x_fit, y_fit_lower, y_fit_upper, color="blue", alpha=0.2,
                          label="Error bounds")
 
         # Compute the plot residuals
-        # Get the y_fit values which correspond to the data values
+        # Get the y_fit values at the corresponding data values
         y_fit_vals_at_data = []
         for i in range(len(x_data)):
             index_pos = search_array(x_fit, x_data[i])
@@ -87,16 +89,21 @@ def linear_fit(x_array, y_array, y_array_errs, plotting=False):
 
         residuals = y_data - array(y_fit_vals_at_data)
 
+        # Plot the residuals
+        ax[1].plot(x_array, residuals, "bo")
+
         # Plot formatting etc.
-        plt.tick_params(axis="both", labelsize=16, pad=5)
-        plt.xlim(-1.0, 1.2 * max(x_array))
-        plt.ylim(0.5 * min(y_array), 1.2 * max(y_array))
-        plt.xlabel("x [units]", fontsize=16)
-        plt.ylabel("y [units]", fontsize=16)
-        plt.legend(loc="upper left")
-        plt.title("m = " + str(round(gradient, 3)) + " +/- " + str(round(gradient_error, 3))
-                  + "\n"
-                  + "c = " + str(round(intercept, 3)) + " +/- " + str(round(intercept_error, 3)))
+        ax[0].tick_params(axis="both", labelsize=16, pad=5)
+        ax[0].set_xlim(-1.0, 1.2 * max(x_array))
+        ax[0].set_ylim(0.5 * min(y_array), 1.2 * max(y_array))
+        ax[0].set_xlabel("x [units]", fontsize=16)
+        ax[0].set_ylabel("y [units]", fontsize=16)
+        ax[0].legend(loc="upper left")
+        ax[0].set_title("m = " + str(round(gradient, 3)) + " +/- " + str(round(gradient_error, 3))
+                        + "\n"
+                        + "c = " + str(round(intercept, 3)) + " +/- " + str(round(intercept_error, 3)))
+
+        plt.tight_layout()
         plt.show()
 
     return x_fit, y_fit, gradient, gradient_error, intercept, intercept_error
