@@ -92,6 +92,11 @@ def linear_fit(x_array, y_array, y_array_errs, plotting=False):
         # Plot the residuals
         ax[1].plot(x_array, residuals, "bo")
 
+        # Add a zero line for reference
+        residuals_zero_x = [-1.0, 1.2 * max(x_array)]
+        residuals_zero_y = [0.0, 0.0]
+        ax[1].plot(residuals_zero_x, residuals_zero_y, "k--", lw=2)
+
         # Plot formatting etc.
         ax[0].tick_params(axis="both", labelsize=16, pad=5)
         ax[0].set_xlim(-1.0, 1.2 * max(x_array))
@@ -102,7 +107,6 @@ def linear_fit(x_array, y_array, y_array_errs, plotting=False):
         ax[0].set_title("m = " + str(round(gradient, 3)) + " +/- " + str(round(gradient_error, 3))
                         + "\n"
                         + "c = " + str(round(intercept, 3)) + " +/- " + str(round(intercept_error, 3)))
-
         plt.tight_layout()
         plt.show()
 
