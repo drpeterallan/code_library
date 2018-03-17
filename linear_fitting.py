@@ -64,7 +64,7 @@ def linear_fit(x_array, y_array, y_array_errs, plotting=False):
 
     if plotting:
         
-        fig, ax = plt.subplots(2, 1, sharex=True)
+        fig, ax = plt.subplots(2, 1, figsize=(7, 10), sharex=True)
 
         # Plot the data and the fit
         ax[0].errorbar(x_array, y_array, yerr=y_array_errs, fmt="o", color="blue", label="Data")
@@ -78,7 +78,7 @@ def linear_fit(x_array, y_array, y_array_errs, plotting=False):
 
         # Plot the error envelope of the fit
         ax[0].fill_between(x_fit, y_fit_lower, y_fit_upper, color="blue", alpha=0.2,
-                         label="Error bounds")
+                           label="Error bounds")
 
         # Compute the plot residuals
         # Get the y_fit values at the corresponding data values
@@ -99,15 +99,17 @@ def linear_fit(x_array, y_array, y_array_errs, plotting=False):
 
         # Plot formatting etc.
         ax[0].tick_params(axis="both", labelsize=16, pad=5)
-        ax[0].set_xlim(-1.0, 1.2 * max(x_array))
+        ax[1].tick_params(axis="both", labelsize=16, pad=5)
+        ax[0].set_xlim(-1.0, 1.1 * max(x_array))
         ax[0].set_ylim(0.5 * min(y_array), 1.2 * max(y_array))
-        ax[0].set_xlabel("x [units]", fontsize=16)
+        ax[1].set_xlabel("x [units]", fontsize=16)
         ax[0].set_ylabel("y [units]", fontsize=16)
+        ax[1].set_ylabel("Residuals", fontsize=16)
         ax[0].legend(loc="upper left")
         ax[0].set_title("m = " + str(round(gradient, 3)) + " +/- " + str(round(gradient_error, 3))
                         + "\n"
                         + "c = " + str(round(intercept, 3)) + " +/- " + str(round(intercept_error, 3)))
-        plt.tight_layout()
+        plt.tight_layout(h_pad=2.0)
         plt.show()
 
     return x_fit, y_fit, gradient, gradient_error, intercept, intercept_error
