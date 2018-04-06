@@ -18,12 +18,13 @@ def fit_circle(x_array, y_array):
 
 if __name__ == "__main__":
 
-    # Create some random data
+    # Create some random data - did this by drawing a portion the circle and creating
+    # points which fell close to it
     x_data = arange(0, 20, 2)
     y_data = array([21, 19, 20, 16, 17, 18, 15, 12, 9, 11])  # convert to numpy array
 
     # Plot the data
-    plt.plot(x_data, y_data, "bo")
+    plt.plot(x_data, y_data, "bo", label="data")
 
     # Perform fit to data
     coefs = fit_circle(x_data, y_data)
@@ -33,9 +34,13 @@ if __name__ == "__main__":
     y_fit = circle_function(x_fit, coefs[0], coefs[1], coefs[2])
 
     # Overplot fit
-    plt.plot(x_fit, y_fit, "r-", lw=2)
+    plt.plot(x_fit, y_fit, "r-", lw=2, label="fit")
 
     # Plot formatting etc.
+    plt.xlabel("x axis", fontsize=16)
+    plt.ylabel("y axis", fontsize=16)
+    plt.tick_params(axis="both", labelsize=16, pad=5)
+    plt.legend(loc="lower left")
     plt.xlim(-1, 21)
     plt.ylim(5, 22)
     plt.show()
