@@ -14,6 +14,10 @@ def ellipse_function(x_array, a, b, x0, y0):
     return ((b * (a**2 + x_array**2 + (2 * x_array * x0 - x0**2))**0.5) / a) + y0
 
 
+def ellipse_function2(x_array, a, b, x0, y0):
+    return y0 - ((b * (a**2 + x_array**2 + (2 * x_array * x0 - x0**2))**0.5) / a)
+
+
 def fit_circle(x_array, y_array):
     coefs_int = [0.0, 0.0, 20]  # Initial guess of parameters
     coefs, _ = curve_fit(circle_function, x_array, y_array, coefs_int)
@@ -41,17 +45,19 @@ if __name__ == "__main__":
     print(coefs)
 
     # Create the fit line
-    x_fit = arange(min(x_data), max(x_data), 0.1)
+    x_fit = arange(-100, max(x_data) + 100, 0.1)
     y_fit = ellipse_function(x_fit, coefs[0], coefs[1], coefs[2], coefs[3])
+    y_fit2 = ellipse_function2(x_fit, coefs[0], coefs[1], coefs[2], coefs[3])
 
     # Overplot fit
     plt.plot(x_fit, y_fit, "r-", lw=2, label="fit")
+    plt.plot(x_fit, y_fit2, "g-", lw=2, label="fit")
 
     # Plot formatting etc.
     plt.xlabel("x axis", fontsize=16)
     plt.ylabel("y axis", fontsize=16)
     plt.tick_params(axis="both", labelsize=16, pad=5)
     plt.legend(loc="lower left")
-    # plt.xlim(-1, 21)
+    # plt.xlim(-31, 31)
     # plt.ylim(5, 22)
     plt.show()
