@@ -9,6 +9,7 @@ def get_flychk_data(path_to_file):
     intensity = data.iloc[:, 1].values
     return energy, intensity
 
+
 if __name__ == "__main__":
 
     directory = "/home/peter/FLYCHK/Al/"
@@ -16,5 +17,17 @@ if __name__ == "__main__":
 
     energy_Al, intensity_Al = get_flychk_data(directory + file_name)
 
-    plt.plot(energy_Al, intensity_Al)
+    fig, ax = plt.subplots()
+    ax.plot(energy_Al, intensity_Al, lw=2)
+
+    # Plot formatting
+    ax.tick_params(axis="both", labelsize=16, pad=5)
+    # ax[0].set_xlim(-1.0, 1.1 * max(x_array))
+    # ax[0].set_ylim(0.5 * min(y_array), 1.2 * max(y_array))
+    ax.set_xlabel("Energy [eV]", fontsize=16)
+    ax.set_ylabel(r"$I$ [10$^{-7}$ J/cm$^{2}$/s/Hz/srad]", fontsize=16)
+    ax.legend(loc="upper left")
+    plt.tight_layout(h_pad=2.0)
     plt.show()
+    plt.show()
+
