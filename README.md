@@ -1,3 +1,3 @@
-# useful_code
+# code_library
 
-Repo for frequently used and useful bits of python code
+Repo for frequently used and useful bits of random python code
