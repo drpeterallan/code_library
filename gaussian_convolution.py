@@ -1,11 +1,7 @@
 from __future__ import division, print_function  # python 2 to 3 compatibility
-from numpy import exp, arange, sqrt, log, array, convolve, interp
+from numpy import arange, array, convolve, interp
 import matplotlib.pyplot as plt
-
-
-def gaussian_function(x_array, height, centre, fwhm):
-    c = fwhm / (2 * sqrt(2 * log(2)))
-    return height * exp(-(x_array - centre)**2 / (2.0 * c**2.0))
+from my_functions.fit_functions import gaussian_function
 
 
 def test_mask(width, height, x_array):
@@ -46,7 +42,7 @@ if __name__ == "__main__":
         plt.tick_params(axis="both", labelsize=16, pad=5)
         plt.xlabel("Position [a. u.]", fontsize=16)
         plt.ylabel("Signal [a. u.]", fontsize=16)
-        plt.xlim(-11, 11)
+        plt.xlim(-12, 12)
         plt.ylim(0, 1.2)
         plt.legend(title="Gaussian FWHM:", fontsize=12)
 

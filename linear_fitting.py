@@ -3,6 +3,7 @@ from numpy import linspace, polyval, sqrt, diag, array, argmin
 import matplotlib.pyplot as plt
 from scipy.optimize import curve_fit
 from random import random
+from my_functions.fit_functions import linear_function
 
 
 def search_array(array_to_search, search_term):
@@ -10,10 +11,6 @@ def search_array(array_to_search, search_term):
     array_to_search = array(array_to_search)
     index_pos = argmin(abs(array_to_search - search_term))
     return index_pos
-
-
-def linear_function(x_array, m, c):
-    return m * x_array + c
 
 
 def linear_fit(x_array, y_array, y_array_errs, plotting=False):
