@@ -1,8 +1,12 @@
 from __future__ import division, print_function  # python 2 to 3 compatibility
 import matplotlib.pyplot as plt
-from numpy import shape, array, exp, arange, diag, sqrt, append, zeros
-from my_functions.pa3 import search_function
+from numpy import shape, array, exp, arange, diag, sqrt, argmin, abs
 from scipy.optimize import curve_fit
+
+
+def search_function(array_to_search, search_value):
+    # Return index position of search_value in array_to_search
+    return argmin(abs(array_to_search - search_value))
 
 
 def read_image_file(path_to_file):
@@ -30,7 +34,7 @@ def contour_image_plot(x_axis, y_axis, pixel_vals):
 def get_yaxis_lineout(y_axis, pixel_vals, y_lineout_position):
     # Function to get a lineout in the y axis
     # Search y_axis for user requested position
-    y_index_pos, _ = search_function(y_axis, y_lineout_position)
+    y_index_pos = search_function(y_axis, y_lineout_position)
     return pixel_vals[y_index_pos, :]
 
 
