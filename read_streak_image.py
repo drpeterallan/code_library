@@ -5,6 +5,7 @@ from scipy.optimize import curve_fit
 import sys
 sys.dont_write_bytecode = True  # Don't generate .pyc file
 from my_functions.array_functions import search_function
+from my_functions.fit_functions import sigmoid_function
 
 
 def read_image_file(path_to_file):
@@ -34,10 +35,6 @@ def get_yaxis_lineout(y_axis, pixel_vals, y_lineout_position):
     # Search y_axis for user requested position
     y_index_pos = search_function(y_axis, y_lineout_position)
     return pixel_vals[y_index_pos, :]
-
-
-def sigmoid_function(x_array, minimum, maximum, centre, slope):
-    return minimum + ((maximum - minimum) / (1 + exp((centre - x_array) / slope)))
 
 
 def fit_edge_profile(x_array, y_array):
