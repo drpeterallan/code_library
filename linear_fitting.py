@@ -3,6 +3,8 @@ from numpy import linspace, polyval, sqrt, diag, array, argmin
 import matplotlib.pyplot as plt
 from scipy.optimize import curve_fit
 from random import random
+import sys
+sys.dont_write_bytecode = True  # Don't generate .pyc file
 from my_functions.fit_functions import linear_function
 
 
