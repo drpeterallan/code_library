@@ -2,47 +2,45 @@ from __future__ import division, print_function  # python 2 to 3 compatibility
 from pandas import read_csv
 import matplotlib.pyplot as plt
 from my_functions.fit_functions import gaussian_function
-from numpy import convolve
+from numpy import convolve, interp, linspace
+import sys
+sys.dont_write_bytecode = True  # Don't generate .pyc file
+
 
 def get_flychk_data(path_to_file):
     data = read_csv(path_to_file, skiprows=2, delim_whitespace=True)
-    energy = data.iloc[:, 0].values
-    intensity = data.iloc[:, 1].values
-    return energy, intensity
-
-
-def eV_to_nm(input_array):
-    return 1240.0 / input_array
+    # Returns energy, intensity
+    return data.iloc[:, 0].values, data.iloc[:, 1].values
 
 
 if __name__ == "__main__":
 
+    # Get data
     directory = "/home/peter/FLYCHK/Ne/"
-    file_name = "Ne_300_1e20_0.1_NLTE"
-
+    file_name = "Ne_300_5e20_0.1_NLTE"
     energy, intensity = get_flychk_data(directory + file_name)
 
-    # Convert to nm
-    energy_Al_nm = eV_to_nm(energy_Al)
-
-    fig, ax = plt.subplots()
-    ax.semilogy(energy, intensity, lw=2)
-
-    # Plot formatting
-    ax.tick_params(axis="both", labelsize=16, pad=5)
-    ax.set_xlabel("Energy [eV]", fontsize=16)
-    ax.set_ylabel(r"$I$ [10$^{-7}$ J/cm$^{2}$/s/Hz/srad]", fontsize=16)
-    ax.legend(loc="upper left")
-    plt.tight_layout(h_pad=2.0)
-    plt.xlim(800, 1500)
-    plt.show()
+    # Interpolate the flychk spectra onto a regular grid
+    energy_interp = linspace(min(energy), max(energy), 5e3)
+    intensity_interp = interp(energy_interp, energy, intensity)
 
     # Create the gaussian to model the detector resolution
-    y_gauss = gaussian_function(energy, 10, 1500, 20)
-    y_convolved = convolve(intensity, y_gauss, mode="same")
+    FWHM = 5
+    mid_point = (min(energy_interp) + max(energy_interp)) / 2
+    y_gauss = gaussian_function(energy_interp, 1, mid_point, FWHM)
+    y_convolved = convolve(intensity_interp, y_gauss, mode="same")
 
-    plt.semilogy(energy-300, y_convolved)
-    plt.xlim(800, 1500)
-    plt.ylim(1e-0, max(y_convolved))
+    fig, ax = plt.subplots(2, 1, figsize=(7, 10), sharex=True)
+    ax[0].semilogy(energy, intensity, "b-", lw=2, label="FLYCHK")
+    ax[0].tick_params(axis="both", labelsize=16, pad=5)
+    ax[0].set_ylabel(r"$I$ [10$^{-7}$ J/cm$^{2}$/s/Hz/srad]", fontsize=16)
+
+    ax[1].semilogy(energy_interp, y_convolved, "r-", lw=2, label="Convolved (FWHM=" + str(FWHM) + ")")
+    ax[1].tick_params(axis="both", labelsize=16, pad=5)
+    ax[1].set_xlabel("Energy [eV]", fontsize=16)
+    ax[1].set_ylabel(r"$I$ [10$^{-7}$ J/cm$^{2}$/s/Hz/srad]", fontsize=16)
+    ax[1].legend(loc="upper left")
+    ax[1].set_xlim(800, 1500)
+    fig.tight_layout()
     plt.show()
 
