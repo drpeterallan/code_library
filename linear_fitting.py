@@ -4,8 +4,8 @@ import matplotlib.pyplot as plt
 from scipy.optimize import curve_fit
 from random import random
 import sys
-sys.dont_write_bytecode = True  # Don't generate .pyc file
 from my_functions.fit_functions import linear_function
+sys.dont_write_bytecode = True  # Don't generate .pyc file
 
 
 def search_array(array_to_search, search_term):
