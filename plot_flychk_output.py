@@ -17,7 +17,7 @@ if __name__ == "__main__":
 
     # Get data
     directory = "/home/peter/FLYCHK/Ne/"
-    file_name = "Ne_300_5e20_0.1_NLTE"
+    file_name = "Ne_300_1e20_0.1_NLTE"
     energy, intensity = get_flychk_data(directory + file_name)
 
     # Interpolate the flychk spectra onto a regular grid
