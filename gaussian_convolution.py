@@ -1,8 +1,6 @@
 from __future__ import division, print_function  # python 2 to 3 compatibility
 from numpy import arange, array, convolve, interp
 import matplotlib.pyplot as plt
-import sys
-sys.dont_write_bytecode = True  # Don't generate .pyc file
 from my_functions.fit_functions import gaussian_function
 
 
