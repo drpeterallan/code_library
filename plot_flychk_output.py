@@ -3,8 +3,6 @@ from pandas import read_csv
 import matplotlib.pyplot as plt
 from my_functions.fit_functions import gaussian_function
 from numpy import convolve, interp, linspace
-import sys
-sys.dont_write_bytecode = True  # Don't generate .pyc file
 
 
 def get_flychk_data(path_to_file):
