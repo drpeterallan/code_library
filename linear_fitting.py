@@ -1,18 +1,10 @@
 from __future__ import division, print_function  # python 2 to 3 compatibility
-from numpy import linspace, polyval, sqrt, diag, array, argmin
+from numpy import linspace, polyval, sqrt, diag, array
 import matplotlib.pyplot as plt
 from scipy.optimize import curve_fit
 from random import random
-import sys
 from my_functions.fit_functions import linear_function
-sys.dont_write_bytecode = True  # Don't generate .pyc file
-
-
-def search_array(array_to_search, search_term):
-    # Convert list to search into numpy array
-    array_to_search = array(array_to_search)
-    index_pos = argmin(abs(array_to_search - search_term))
-    return index_pos
+from my_functions.array_functions import search_function
 
 
 def linear_fit(x_array, y_array, y_array_errs, plotting=False):
@@ -77,13 +69,13 @@ def linear_fit(x_array, y_array, y_array_errs, plotting=False):
 
         # Plot the error envelope of the fit
         ax[0].fill_between(x_fit, y_fit_lower, y_fit_upper, color="blue", alpha=0.2,
-                           label="Error bounds")
+                           label="Error envelope")
 
         # Compute the plot residuals
         # Get the y_fit values at the corresponding data values
         y_fit_vals_at_data = []
         for i in range(len(x_data)):
-            index_pos = search_array(x_fit, x_data[i])
+            index_pos = search_function(x_fit, x_data[i])
             y_fit_vals_at_data.append(y_fit[index_pos])
 
         residuals = y_data - array(y_fit_vals_at_data)
