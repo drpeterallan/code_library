@@ -8,13 +8,13 @@ def get_execution_time(start_time):
     return time.time() - start_time
 
 
-def get_list_size(input_list):
-    print(str(sys.getsizeof(input_list) / 1E6), "Mb", type(input_list), len(input_list))
+def get_list_properties(input_list):
+    print((sys.getsizeof(input_list)), "bytes", type(input_list), len(input_list))
 
 
 def run_list_creation(elements_in_list):
 
-    # Series of different for loop implementations and their performance
+    # Series of different implementations for creating lists and their performance
 
     execution_times = []
 
@@ -76,18 +76,19 @@ def run_list_creation(elements_in_list):
 
     # Get physical size of arrays
     print("1.")
-    get_list_size(squares1)
+    get_list_properties(squares1)
     print("2.")
-    get_list_size(squares2)
+    get_list_properties(squares2)
     print("3.")
-    get_list_size(squares3)
+    get_list_properties(squares3)
     print("4.")
-    get_list_size(squares4)
+    get_list_properties(squares4)
     print("5.")
-    get_list_size(squares5)
+    get_list_properties(squares5)
 
 
 if __name__ == "__main__":
 
     elements_in_list = 1e3
     run_list_creation(elements_in_list)
+
