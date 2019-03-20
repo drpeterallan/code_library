@@ -3,8 +3,8 @@ from numpy import linspace, polyval, sqrt, diag, array
 import matplotlib.pyplot as plt
 from scipy.optimize import curve_fit
 from random import random
-from my_functions.fit_functions import linear_function
-from my_functions.array_functions import search_function
+from python_code.pysrc.my_functions.fit_functions import linear_function
+from python_code.pysrc.my_functions.array_functions import search_function
 
 
 def linear_fit(x_array, y_array, y_array_errs, plotting=False):
