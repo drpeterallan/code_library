@@ -1,7 +1,7 @@
 from __future__ import division, print_function  # python 2 to 3 compatibility
 from numpy import arange, array, convolve, interp
 import matplotlib.pyplot as plt
-from my_functions.fit_functions import gaussian_function
+from python_code.pysrc.my_functions.fit_functions import gaussian_function
 
 
 def test_mask(width, height, x_array):
