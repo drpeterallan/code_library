@@ -30,10 +30,9 @@ def sigmoid_function(x_array, minimum, maximum, centre, slope):
 
 
 def run_example(fit_type):
-    if fit_type == "linear":
+    if fit_type == "linear" or "Linear":
         x_array = np.linspace(0, 10)
         y_array = linear_function(x_array, 2, 5)
-        print(type(y_array))
         plt.plot(x_array, y_array)
         plt.show()
 
