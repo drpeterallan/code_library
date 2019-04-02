@@ -16,15 +16,21 @@ def main(array1, array2):
     None
     """
 
-    print(len(array1), len(array2))
-    # Firstly check arrays are of the same length
-    assert array1.size == array2.size, "Arrays must have the same number of elements"
+    # Perform checks
+    if isinstance(array1, (list, np.ndarray)) is False:
+        print("Must be a list or an array")
+    isinstance(array2, (list, np.ndarray))
+    try:
+        assert len(array1) == len(array2), "Arrays must have the same number of elements"
+    except TypeError as error:
+        print(error)
 
 
 if __name__ == "__main__":
 
     # Create some data to check
-    array1 = np.linspace(0, 10, 9)
+    # array1 = np.linspace(0, 10, 10)
+    array1 = 2.0
     array2 = np.linspace(0, 20, 10)
 
     main(array1, array2)
