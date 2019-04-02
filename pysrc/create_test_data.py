@@ -19,6 +19,6 @@ if __name__ == "__main__":
     plt.show()
 
     # Save data to text file
-    np.savetxt("/Users/pallan/Desktop/Bayesian_work/test_fitting_data.txt",
+    np.savetxt("/Users/pallan/Documents/neutron_bayesian_work/test_fitting_data.txt",
                np.transpose([x_data, y_data, y_data_error]),
                fmt="%.3e", delimiter="\t", header="x [a.u.]\ty [a.u.]\ty_error [a.u.]")
