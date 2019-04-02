@@ -11,9 +11,7 @@ def test_mask(width, height, x_array):
     y_square = array([0, 0, height, height, 0, 0], dtype=float)
 
     # Interpolate mask onto gaussian x grid
-    y_square = interp(x_array, x_square, y_square)
-
-    return y_square
+    return interp(x_array, x_square, y_square)
 
 
 if __name__ == "__main__":
