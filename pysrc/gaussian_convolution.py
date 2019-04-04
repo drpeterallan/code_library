@@ -2,6 +2,7 @@ from __future__ import division, print_function  # python 2 to 3 compatibility
 from numpy import arange, array, convolve, interp
 import matplotlib.pyplot as plt
 from python_code.pysrc.my_functions.fit_functions import gaussian_function
+from python_code.pysrc.matplotlibrc_setup import set_rc_params
 
 
 def test_mask(width, height, x_array):
@@ -16,12 +17,15 @@ def test_mask(width, height, x_array):
 
 if __name__ == "__main__":
 
+    # Setting rcParams
+    set_rc_params()
+
     # Create a square pulse to convolve with a gaussian
     x_data = arange(-15, 16, 0.1)
     y_square = test_mask(5, 10, x_data)
 
     # Plot the initial unperturbed data
-    plt.plot(x_data, y_square / max(y_square), "k-", lw=2, label="Mask")
+    plt.plot(x_data, y_square / max(y_square), "k-", label="Mask")
 
     # Loop over a range of different gaussian widths
     fwhms = [1, 2, 3, 4, 5]
@@ -34,14 +38,14 @@ if __name__ == "__main__":
         y_convolved = convolve(y_square, y_gauss, mode="same")
 
         # Plot the output
-        plt.plot(x_data + 0.4, y_convolved / max(y_convolved), lw=2, label=str(fwhm))
+        plt.plot(x_data + 0.4, y_convolved / max(y_convolved), label=str(fwhm))
 
         # Finish up plot
-        plt.tick_params(axis="both", labelsize=16, pad=5)
-        plt.xlabel("Position [a. u.]", fontsize=16)
-        plt.ylabel("Signal [a. u.]", fontsize=16)
+        # plt.tick_params(axis="both", labelsize=16, pad=5)
+        plt.xlabel("Position [a. u.]")
+        plt.ylabel("Signal [a. u.]")
         plt.xlim(-12, 12)
         plt.ylim(0, 1.2)
-        plt.legend(title="Gaussian FWHM:", fontsize=12)
+        plt.legend(title="Gaussian FWHM:")
 
     plt.show()
