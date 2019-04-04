@@ -18,12 +18,15 @@ def main(array1, array2):
 
     # Perform checks
     if isinstance(array1, (list, np.ndarray)) is False:
-        print("Must be a list or an array")
-    isinstance(array2, (list, np.ndarray))
+        print("Array1 must be a list or an ndarray")
+    if isinstance(array2, (list, np.ndarray)) is False:
+        print("Array2 must be a list or an ndarray")
     try:
         assert len(array1) == len(array2), "Arrays must have the same number of elements"
     except TypeError as error:
         print(error)
+
+    print("Tests finished")
 
 
 if __name__ == "__main__":
