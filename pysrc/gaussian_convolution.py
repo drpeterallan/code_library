@@ -1,3 +1,14 @@
+"""
+----------------------
+Gaussian Convolution
+----------------------
+
+Convolve gaussians of different FWHM with a single square pulse and plot results
+
+:Date: 05/04/2019
+
+"""
+
 from __future__ import division, print_function  # python 2 to 3 compatibility
 from numpy import arange, array, convolve, interp
 import matplotlib.pyplot as plt
@@ -7,17 +18,36 @@ from python_code.pysrc.matplotlibrc_setup import set_rc_params
 
 def test_mask(width, height, x_array):
 
+    """ Function to create a square pulse and interpolate onto an array
+
+    Parameters
+    ----------
+    width: int/float
+        width of pulse in x axis
+    height: int/float
+        height of pulse in y axis
+    x_array: list/ndarray
+        list/array of x positions to interplate pulse onto
+
+    Returns
+    -------
+    y_array: ndarray
+        ndarray of interpolated y values for square pulse
+    """
+
     # Create a square pulse to convolve with a gaussian
     x_square = array([2 * -width, -width, -width, width, width, 2 * width], dtype=float)
     y_square = array([0, 0, height, height, 0, 0], dtype=float)
 
     # Interpolate mask onto gaussian x grid
-    return interp(x_array, x_square, y_square)
+    y_array = interp(x_array, x_square, y_square)
+
+    return y_array
 
 
 if __name__ == "__main__":
 
-    # Setting rcParams
+    # Setting global plotting parameters
     set_rc_params()
 
     # Create a square pulse to convolve with a gaussian
