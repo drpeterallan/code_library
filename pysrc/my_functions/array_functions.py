@@ -42,6 +42,8 @@ def run_examples():
     search_value = 0.73
     array_to_search = [0, 0.12, 0.56, 0.7, 0.98]
     index_position = search_function(array_to_search, search_value)
+    print("Search Array example\n--------------------")
+    print("Searching for " + str(search_value))
     print("Index position of value: " + str(index_position))
     print("Value found: " + str(array_to_search[index_position]))
 
