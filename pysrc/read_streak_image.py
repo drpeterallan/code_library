@@ -4,8 +4,8 @@ from numpy import shape, array, exp, arange, diag, sqrt, argmin, abs
 from scipy.optimize import curve_fit
 import sys
 sys.dont_write_bytecode = True  # Don't generate .pyc file
-from my_functions.array_functions import search_function
-from my_functions.fit_functions import sigmoid_function
+from python_code.pysrc.my_functions.array_functions import search_function
+from python_code.pysrc.my_functions.fit_functions import sigmoid_function
 
 
 def read_image_file(path_to_file):
