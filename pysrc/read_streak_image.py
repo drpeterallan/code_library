@@ -1,11 +1,11 @@
 from __future__ import division, print_function  # python 2 to 3 compatibility
 import matplotlib.pyplot as plt
-from numpy import shape, array, exp, arange, diag, sqrt, argmin, abs
+from numpy import shape, array, arange, diag, sqrt
 from scipy.optimize import curve_fit
 import sys
 sys.dont_write_bytecode = True  # Don't generate .pyc file
-from python_code.pysrc.my_functions.array_functions import search_function
-from python_code.pysrc.my_functions.fit_functions import sigmoid_function
+from python_code.pysrc.utils.array_functions import search_function
+from python_code.pysrc.utils.fit_functions import sigmoid_function
 
 
 def read_image_file(path_to_file):
