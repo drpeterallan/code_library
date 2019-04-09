@@ -4,7 +4,7 @@ from numpy import shape, array, arange, diag, sqrt
 from scipy.optimize import curve_fit
 import sys
 sys.dont_write_bytecode = True  # Don't generate .pyc file
-from python_code.pysrc.utils.array_functions import search_function
+from python_code.pysrc.utils.array_functions import search_array
 from python_code.pysrc.utils.fit_functions import sigmoid_function
 
 
@@ -33,7 +33,7 @@ def contour_image_plot(x_axis, y_axis, pixel_vals):
 def get_yaxis_lineout(y_axis, pixel_vals, y_lineout_position):
     # Function to get a lineout in the y axis
     # Search y_axis for user requested position
-    y_index_pos = search_function(y_axis, y_lineout_position)
+    y_index_pos = search_array(y_axis, y_lineout_position)
     return pixel_vals[y_index_pos, :]
 
 

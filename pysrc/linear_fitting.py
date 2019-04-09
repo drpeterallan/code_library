@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 from scipy.optimize import curve_fit
 from random import random
 from python_code.pysrc.utils.fit_functions import linear_function
-from python_code.pysrc.utils.array_functions import search_function
+from python_code.pysrc.utils.array_functions import search_array
 
 
 def linear_fit(x_array, y_array, y_array_errs, plotting=False):
@@ -75,7 +75,7 @@ def linear_fit(x_array, y_array, y_array_errs, plotting=False):
         # Get the y_fit values at the corresponding data values
         y_fit_vals_at_data = []
         for i in range(len(x_data)):
-            index_pos = search_function(x_fit, x_data[i])
+            index_pos = search_array(x_fit, x_data[i])
             y_fit_vals_at_data.append(y_fit[index_pos])
 
         residuals = y_data - array(y_fit_vals_at_data)
