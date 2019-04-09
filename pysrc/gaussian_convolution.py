@@ -12,8 +12,8 @@ Convolve gaussians of different FWHM with a single square pulse and plot results
 from __future__ import division, print_function  # python 2 to 3 compatibility
 from numpy import arange, array, convolve, interp
 import matplotlib.pyplot as plt
-from python_code.pysrc.my_functions.fit_functions import gaussian_function
-from python_code.pysrc.matplotlibrc_setup import set_rc_params
+from python_code.pysrc.utils.fit_functions import gaussian_function
+from python_code.pysrc.utils.matplotlibrc_setup import set_rc_params
 
 
 def test_mask(width, height, x_array):
