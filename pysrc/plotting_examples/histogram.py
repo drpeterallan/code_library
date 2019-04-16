@@ -31,20 +31,31 @@ def generate_data():
     return data
 
 
+def get_bin_positions(bin_edges):
+    """ Take the bin edges and calculate
+
+    :param bin_edges:
+    :return:
+    """
+
+
 if __name__ == "__main__":
 
     # Setup plotting defaults
-    # set_rc_params()
+    set_rc_params()
 
     # Generate and plot data
     data = generate_data()
-    plt.hist(data, bins="auto", facecolor="cornflowerblue", edgecolor="black")
-    plt.show()
+    # plt.hist(data, bins=10, facecolor="cornflowerblue", edgecolor="black", density=True)
+    # plt.show()
 
     # Use numpy
-    # y_hist, bin_edges = np.histogram(data, bins="auto", range=None, weights=None, density=None)
-    # print(bin_edges)
-    # plt.bar(bin_edges[1:], y_hist)
-    # print(len(y_hist), len(bin_edges))
-    # # plt.plot(y_hist)
-    # plt.show()
+    y_hist, bin_edges = np.histogram(data, bins=20, range=None, weights=None, density=True)
+    for i in np.arange(1, len(bin_edges), 1):
+        print(bin_edges[i] - bin_edges[i-1])
+    plt.bar(bin_edges[:-1], y_hist, edgecolor="black", width=0.0438)
+    plt.xlim(0, 1.1)
+    plt.show()
+
+    # Calculate area under PDF
+    print(sum(y_hist * 0.0438))
