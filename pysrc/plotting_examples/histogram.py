@@ -3,7 +3,7 @@
 Histogram example
 ----------------------
 
-Example of a histogram plot
+Example of a histogram plot using numpy
 
 :Date: 12/04/19
 """
@@ -31,31 +31,32 @@ def generate_data():
     return data
 
 
-def get_bin_positions(bin_edges):
-    """ Take the bin edges and calculate
-
-    :param bin_edges:
-    :return:
-    """
-
-
 if __name__ == "__main__":
 
     # Setup plotting defaults
     set_rc_params()
 
-    # Generate and plot data
+    # Generate sudo data
     data = generate_data()
+
+    # Can plot with matplotlib but then don't have histogram data. Quick way to produce visualisation
     # plt.hist(data, bins=10, facecolor="cornflowerblue", edgecolor="black", density=True)
     # plt.show()
 
-    # Use numpy
-    y_hist, bin_edges = np.histogram(data, bins=20, range=None, weights=None, density=True)
-    for i in np.arange(1, len(bin_edges), 1):
-        print(bin_edges[i] - bin_edges[i-1])
-    plt.bar(bin_edges[:-1], y_hist, edgecolor="black", width=0.0438)
-    plt.xlim(0, 1.1)
-    plt.show()
+    # ------------------------------------------------------------------------------------------------------------------
 
-    # Calculate area under PDF
-    print(sum(y_hist * 0.0438))
+    # Use numpy - have histogram values, use density=True and get a PDF from which you can take probability
+    # intervals. Note, if bins aren't of optimum width PDF won't integrate to 1.
+    y_hist, bin_edges = np.histogram(data, bins="auto", range=None, weights=None, density=True)
+    bin_width = bin_edges[1] - bin_edges[0]
+
+    # Plot result
+    fig, ax = plt.subplots(1, 1)
+    ax.bar(bin_edges[:-1], y_hist, edgecolor="black", width=bin_width)
+
+    # Calculate area under PDF and annotate to plot
+    ax.annotate(round(sum(y_hist * bin_width), 3), xy=(0.8, 0.8), xycoords="axes fraction")
+
+    # Finish up plot
+    ax.set_xlim(0, 1.1)
+    plt.show()
