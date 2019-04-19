@@ -15,7 +15,7 @@ from python_code.pysrc.utils.matplotlibrc_setup import set_rc_params
 
 
 def generate_data():
-    """ Generate some random data with a Beta distribution
+    """ Generate data with a Beta distribution
 
     Returns
     -------
