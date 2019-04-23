@@ -55,7 +55,7 @@ if __name__ == "__main__":
     ax.bar(bin_edges[:-1], y_hist, edgecolor="black", width=bin_width)
 
     # Calculate area under PDF and annotate to plot
-    ax.annotate(round(sum(y_hist * bin_width), 3), xy=(0.8, 0.8), xycoords="axes fraction")
+    ax.annotate("{:.5f}".format(sum(y_hist * bin_width)), xy=(0.8, 0.8), xycoords="axes fraction")
 
     # Finish up plot
     ax.set_xlim(0, 1.1)
