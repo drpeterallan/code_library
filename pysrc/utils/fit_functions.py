@@ -9,9 +9,12 @@ def linear_function(x_array, gradient, intercept):
 
     Parameters
     ----------
-    x_array (array): array of values to return function over
-    gradient (int/float): gradient
-    intercept (int/float): intercept
+    x_array: list/ndarray
+        array of values to return function over
+    gradient: int/float
+        gradient, m
+    intercept: int/float
+        intercept, c
 
     Returns
     -------
