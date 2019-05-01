@@ -14,9 +14,6 @@ from python_code.pysrc.utils.matplotlibrc_setup import set_rc_params
 
 if __name__ == "__main__":
 
-    # Set the random seed to produce same data each time
-    np.random.seed(42)
-
     # Create some sudo data with outliers
     x = np.linspace(-2, 2, 100)
     x = np.arange(-2, 2, 0.1)
