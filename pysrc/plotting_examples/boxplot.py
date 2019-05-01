@@ -27,7 +27,11 @@ if __name__ == "__main__":
     _, ax = plt.subplots()
     plot_label = ["Data set 1"]
     ax.boxplot(data, labels=plot_label, whis=1.5, notch=True, bootstrap=10000, meanline=True, showmeans=True,
+               patch_artist=True,
                flierprops=dict(marker="*", markerfacecolor="r", markeredgecolor="r"),
-               medianprops=dict(linewidth=1.5), meanprops=dict(linewidth=1.5), boxprops=dict(linewidth=1.5),
-               whiskerprops=dict(linewidth=1.5), capprops=dict(linewidth=1.5))
+               medianprops=dict(linewidth=1.5, color="b"),
+               meanprops=dict(linewidth=1.5),
+               boxprops=dict(linewidth=1.5, color="k", facecolor="red", alpha=0.4),
+               whiskerprops=dict(linewidth=1.5),
+               capprops=dict(linewidth=1.5))
     plt.show()
