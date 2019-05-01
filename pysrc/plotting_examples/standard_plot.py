@@ -1,6 +1,6 @@
 """
 ----------------------
-Simple plot
+Standard plot
 ----------------------
 
 Example of simple data plot
