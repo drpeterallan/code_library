@@ -37,7 +37,12 @@ if __name__ == "__main__":
     # Plot the data
     fig, ax = plt.subplots()
     contour_plot = ax.contourf(x, y, z, 500)
-    fig.colorbar(contour_plot, ax=ax, ticks=levels, pad=0.05)
+    ax.set_xlabel("$x$ [mm]")
+    ax.set_ylabel("$y$ [mm]")
+
+    # Add colourbar
+    cbar = fig.colorbar(contour_plot, ax=ax, ticks=levels, pad=0.05)
+    cbar.ax.set_ylabel("$P_{\mathrm{Z}}$ [GPa]")
 
     # Add contour lines with labels
     CS = ax.contour(x, y, z, colors="k")
