@@ -7,7 +7,7 @@ def set_rc_params():
 
     rcParams.update({"font.size": 14,
                      "font.family": "sans-serif",
-                     "lines.linewidth": 2,
+                     "lines.linewidth": 1.5,
                      "xtick.labelsize": 14,
                      "xtick.major.size": 5,
                      "xtick.major.width": 1,
@@ -15,6 +15,7 @@ def set_rc_params():
                      "ytick.labelsize": 14,
                      "ytick.major.size": 5,
                      "ytick.major.width": 1,
+                     "image.cmap": "jet"
                      })
 
 
