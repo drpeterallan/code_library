@@ -5,6 +5,7 @@ from scipy.optimize import curve_fit
 from random import random
 from python_code.pysrc.utils.fit_functions import linear_function
 from python_code.pysrc.utils.array_functions import search_array
+from python_code.pysrc.utils.matplotlibrc_setup import set_rc_params
 
 
 def linear_fit(x_array, y_array, y_array_errs, plotting=False):
@@ -42,7 +43,7 @@ def linear_fit(x_array, y_array, y_array_errs, plotting=False):
     # Perform fit to the data
     coefs_int = [0.0, 0.0]  # Initial guess of parameters
     coefs, cov = curve_fit(linear_function, x_array, y_array, coefs_int,
-                           absolute_sigma=y_array_errs)
+                           sigma=y_array_errs, absolute_sigma=True)
 
     # Compute fitting errors
     gradient, intercept = coefs
@@ -54,8 +55,9 @@ def linear_fit(x_array, y_array, y_array_errs, plotting=False):
     y_fit = polyval(coefs, x_fit)
 
     if plotting:
-        
-        fig, ax = plt.subplots(2, 1, figsize=(7, 10), sharex=True)
+
+        set_rc_params()
+        fig, ax = plt.subplots(2, 1, figsize=(5, 8), sharex=True)
 
         # Plot the data and the fit
         ax[0].errorbar(x_array, y_array, yerr=y_array_errs, fmt="o", color="blue", label="Data")
@@ -89,8 +91,8 @@ def linear_fit(x_array, y_array, y_array_errs, plotting=False):
         ax[1].plot(residuals_zero_x, residuals_zero_y, "k--", lw=2)
 
         # Plot formatting etc.
-        ax[0].tick_params(axis="both", labelsize=16, pad=5)
-        ax[1].tick_params(axis="both", labelsize=16, pad=5)
+        # ax[0].tick_params(axis="both", labelsize=16, pad=5)
+        # ax[1].tick_params(axis="both", labelsize=16, pad=5)
         ax[0].set_xlim(-1.0, 1.1 * max(x_array))
         ax[0].set_ylim(0.5 * min(y_array), 1.2 * max(y_array))
         ax[1].set_ylim(-1.1, 1.1)
