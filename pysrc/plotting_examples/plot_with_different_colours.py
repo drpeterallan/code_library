@@ -36,7 +36,7 @@ if __name__ == "__main__":
     # -------------------------------------------------
 
     # Alternatively manually define a colour list
-    colours = ["red", "blue", "green", "black", cmap(0.8)]
+    colours = ["blue", "red", "green", "goldenrod", "purple", "pink", "cyan", "black"]
 
     for i in range(len(colours)):
         ax[1].plot(x, y, color=colours[i], lw=2)
