@@ -36,7 +36,7 @@ if __name__ == "__main__":
     # -------------------------------------------------
 
     # Alternatively manually define a colour list
-    colours = ["blue", "red", "green", "goldenrod", "purple", "fuchsia", "cyan", "black"]
+    colours = ["blue", "red", "green", "goldenrod", "purple", "magenta", "cyan", "black"]
 
     for i in range(len(colours)):
         ax[1].plot(x, y, color=colours[i], lw=2)
