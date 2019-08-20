@@ -3,3 +3,6 @@
 core
 .cache
 .idea/
+*.log
+*.lock
+*.tmp
