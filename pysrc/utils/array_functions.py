@@ -65,6 +65,15 @@ def search_array(array_to_search, search_value):
     return index_position
 
 
+def sort_array():
+
+    # test argsort - returns the indices that would sort the array
+    x = np.array([5, 7, 2, 1])
+    print(x[x.argsort()])
+
+
+
+
 def run_examples():
 
     print("Search Array example\n--------------------")
@@ -93,5 +102,6 @@ def run_examples():
 
 if __name__ == "__main__":
 
-    run_examples()
+    # run_examples()
 
+    sort_array()
