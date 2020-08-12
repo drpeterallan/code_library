@@ -1,7 +1,7 @@
 from __future__ import division, print_function  # python 2 to 3 compatibility
 from pandas import read_csv
 import matplotlib.pyplot as plt
-from python_code.pysrc.utils.fit_functions import gaussian_function
+from esp.pysrc.utils.fit_functions import gaussian_function
 from numpy import convolve, interp, linspace
 
 

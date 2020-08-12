@@ -1,3 +1,3 @@
-# code_library
+# esp
 
-Repo for frequently used and useful bits of random python code
+Frequently used python code and examples 

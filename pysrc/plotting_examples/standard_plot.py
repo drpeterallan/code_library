@@ -5,12 +5,13 @@ Standard plot
 
 Example of simple data plot
 
-:Date: 19/04/19
+Date: 19/04/19
+Author: P. Allan
 """
 
 import matplotlib.pyplot as plt
 import numpy as np
-from python_code.pysrc.utils.matplotlibrc_setup import set_rc_params
+from esp.pysrc.utils.matplotlibrc_setup import set_rc_params
 
 
 if __name__ == "__main__":

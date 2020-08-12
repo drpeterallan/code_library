@@ -10,7 +10,7 @@ Example of a filled contour plot with contour lines added
 
 import matplotlib.pyplot as plt
 import numpy as np
-from python_code.pysrc.utils.matplotlibrc_setup import set_rc_params
+from esp.pysrc.utils.matplotlibrc_setup import set_rc_params
 
 if __name__ == "__main__":
 

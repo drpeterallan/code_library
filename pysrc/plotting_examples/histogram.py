@@ -11,7 +11,7 @@ Example of a histogram plot using numpy
 import matplotlib.pyplot as plt
 import numpy as np
 from scipy import stats
-from python_code.pysrc.utils.matplotlibrc_setup import set_rc_params
+from esp.pysrc.utils.matplotlibrc_setup import set_rc_params
 
 
 def generate_data(a=1, b=1, number_of_points=1000):
