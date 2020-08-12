@@ -11,7 +11,7 @@ Brief description of script
 from __future__ import division, print_function  # python 2 to 3 compatibility
 import numpy as np
 import matplotlib.pyplot as plt
-from python_code.pysrc.utils.matplotlibrc_setup import set_rc_params
+from esp.pysrc.utils.matplotlibrc_setup import set_rc_params
 
 
 def linear_interp(x_array, y_array, num_elems):
@@ -70,8 +70,6 @@ def sort_array():
     # test argsort - returns the indices that would sort the array
     x = np.array([5, 7, 2, 1])
     print(x[x.argsort()])
-
-
 
 
 def run_examples():

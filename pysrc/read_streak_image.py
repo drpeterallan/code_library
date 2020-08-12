@@ -1,22 +1,21 @@
-from __future__ import division, print_function  # python 2 to 3 compatibility
 import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
 from numpy import shape, array, arange, diag, sqrt
 from scipy.optimize import curve_fit
-import sys
-sys.dont_write_bytecode = True  # Don't generate .pyc file
-from python_code.pysrc.utils.array_functions import search_array
-from python_code.pysrc.utils.fit_functions import sigmoid_function
+from esp.pysrc.utils.array_functions import search_array
+from esp.pysrc.utils.fit_functions import sigmoid_function
 
 
 def read_image_file(path_to_file):
     # Function to read image file and return in format you would get real image
     # Read in image file and convert to a numpy array
-    pixel_vals = array(plt.imread(path_to_file), dtype=float)
-    pixel_vals = pixel_vals[::-1, :]  # Correct for reversal of data in y axis
+    # pixel_vals = array(plt.imread(path_to_file), dtype=float)
+    pixel_vals = mpimg.imread(path_to_file)
+    # pixel_vals = image[::-1, :]  # Correct for reversal of data in y axis
 
     # Create time, and spatial axes
-    image_len_x = shape(pixel_vals)[0]
-    image_len_y = shape(pixel_vals)[1]
+    image_len_x = shape(pixel_vals)[1]
+    image_len_y = shape(pixel_vals)[0]
     x_axis = array(range(image_len_x))
     y_axis = array(range(image_len_y))
 
@@ -50,11 +49,14 @@ def fit_edge_profile(x_array, y_array):
 if __name__ == "__main__":
 
     # Get and read in the image data
-    image_location = "/home/peter/Documents/streak_image_analysis/streak_test_image.png"
+    image_location = "../data/raw/streak_test_image.png"
     time, space, data = read_image_file(image_location)
+    print(time.shape, space.shape, data.shape)
+    contour_image_plot(time, space, data)
+    plt.show()
 
     # Define the positions to take lineouts
-    lineout_positions = arange(0, 450, 50)
+    lineout_positions = arange(0, 100, 10)
 
     # Create empty arrays and loop over image
     edge_times = []
@@ -71,11 +73,12 @@ if __name__ == "__main__":
         edge_times_errors.append(errors[2])
 
         # Plot data and fit
-        # plt.plot(time, lineout_vals, "b-", lw=2)
-        # y_fit = sigmoid_func(time, coefs[0], coefs[1], coefs[2], coefs[3])
-        # plt.plot(time, y_fit, "r-", lw=1)
-        # plt.title(coefs[2])
-        # plt.show()
+        plt.plot(time, lineout_vals, "b-", lw=2)
+        p0 = [0, 1, ]
+        y_fit = sigmoid_function(time, *p0)
+        plt.plot(time, y_fit, "r-", lw=1)
+        plt.title(coefs[2])
+        plt.show()
 
     # Convert to numpy array
     edge_times = array(edge_times, dtype=float)
